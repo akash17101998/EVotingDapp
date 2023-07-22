@@ -1,0 +1,7 @@
+console.clear()
+clear
+await getUnnamedAccounts()
+await getChainId()
+await getUnnamedAccounts()
+await getChainId()
+getChainId()

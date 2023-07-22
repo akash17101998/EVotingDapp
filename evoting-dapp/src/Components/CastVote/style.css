@@ -1,0 +1,20 @@
+.cast-vote {
+    border: 1px solid red;
+    padding: 10px;
+}
+
+.cast-vote--inner {
+    padding: 4px;
+    padding-bottom: 10px;
+    border: 1px solid red;
+}
+
+.cast-vote--inner div input {
+    width: 20rem;
+}
+
+.cast-vote--inner * {
+    display: inline-block;
+    height: 25px;
+    margin: 5px;
+}
