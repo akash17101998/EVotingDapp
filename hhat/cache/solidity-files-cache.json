@@ -1,9 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/tur461/work/tut/Evoting_dapp/hhat/contracts/evoting.sol": {
-      "lastModificationDate": 1689504874508,
-      "contentHash": "97f5b819e190b57f9097b50e29b51c81",
+    "D:\\Projects\\Node\\Evoting_dapp\\hhat\\contracts\\evoting.sol": {
+      "lastModificationDate": 1690021716232,
+      "contentHash": "be4bafe12539ebfe6b8c7c54257c4949",
       "sourceName": "contracts/evoting.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -46,9 +46,9 @@
         "EVoting"
       ]
     },
-    "/Users/tur461/work/tut/Evoting_dapp/hhat/contracts/ownable.sol": {
-      "lastModificationDate": 1689504874508,
-      "contentHash": "7a2548f0dcc1bb70c909e2d265887fbb",
+    "D:\\Projects\\Node\\Evoting_dapp\\hhat\\contracts\\ownable.sol": {
+      "lastModificationDate": 1690021716232,
+      "contentHash": "72ebc02b1caf4a2e07a0b0a6a7c541bb",
       "sourceName": "contracts/ownable.sol",
       "solcConfig": {
         "version": "0.8.17",

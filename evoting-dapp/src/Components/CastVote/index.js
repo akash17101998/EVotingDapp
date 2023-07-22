@@ -1,6 +1,22 @@
+import { useState } from "react";
 import "./style.css";
 
-export default function CastVote() { 
+export default function CastVote(props) { 
+    const [memAddr, setMemAddr] = useState('');
+    function onClick(e) {
+        if(
+            memAddr.length != 42 || 
+            memAddr.substring(0,2) != '0x'
+        ) {
+            alert('invalid address')
+            console.log('invalid address')
+            return;
+        }
+        props.castVoteClickHandler(memAddr)
+    }
+    function onChange(e) {
+        setMemAddr(e.target.value)
+    }
 
     return (
         <div className="cast-vote">
@@ -11,8 +27,12 @@ export default function CastVote() {
                         type="text" 
                         className="address-input"
                         placeholder="addr 0x.."
+                        onChange={onChange}
                     />
-                    <button>Cast</button>
+                    <button
+                        onClick={onClick}
+                    >
+                        Cast</button>
                 </div>
 
                 <p>

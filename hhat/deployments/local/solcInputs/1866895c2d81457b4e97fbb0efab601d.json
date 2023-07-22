@@ -1,0 +1,39 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/evoting.sol": {
+      "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.17;\r\n\r\nimport \"./ownable.sol\";\r\n\r\nstruct Member{\r\n    address addr;\r\n    uint256 voteCount;\r\n}\r\n\r\ncontract EVoting is Ownable{\r\n\r\n   \r\n    Member[] public memberList;\r\n    bool public isVoting;\r\n    mapping(address=>bool) public hasVoted;\r\n    mapping(address=>bool) public hasRegistered;\r\n    event VoteCasted(address voter,string s);\r\n    event Registered(address member);\r\n\r\n    function castVoteForMember(address _member) public {\r\n\r\n        require(isVoting, \"Voting has not started\");\r\n        bool found;\r\n        \r\n        for(uint256 i=0; i<memberList.length; i++){\r\n            \r\n            if(memberList[i].addr == _member){\r\n                require(!hasVoted[msg.sender], \"already voted\");\r\n                hasVoted[msg.sender] = true;\r\n                memberList[i].voteCount += 1;\r\n                found = true;\r\n                break;\r\n            }\r\n\r\n        }\r\n        require(found, \"Member not found\");\r\n        emit VoteCasted(msg.sender, \"Voting complete\");\r\n        \r\n    }\r\n\r\n    function setVotingTo(bool _isVoting) public onlyOwner{\r\n        // require(msg.sender == owner, \"Unauthorised\");\r\n        isVoting = _isVoting;\r\n    }\r\n\r\n    function register(address _member) public onlyOwner{\r\n        // require(msg.sender == owner, \"Unauthorised\");\r\n        require(!hasRegistered[_member],\"Already registered\");\r\n        hasRegistered[_member] = true;\r\n        memberList.push(Member(_member,0));\r\n        emit Registered(_member);\r\n    }\r\n\r\n// Only address return not voteCount\r\n    // function getRegistrationList() public view returns(Member[] memory){\r\n    //     return memberList;\r\n    // }\r\n\r\n    function getRegistrationList() public view returns(address[] memory){\r\n        address[] memory memberAddress = new address[](memberList.length);\r\n        for(uint i = 0; i<memberList.length; i++){\r\n            memberAddress[i] = memberList[i].addr;    \r\n        }\r\n        return memberAddress;\r\n    }\r\n    \r\n\r\n    \r\n    function Winner() public view returns(address, uint256) {\r\n        uint256 _voteCount;\r\n        address memberAddress;\r\n        require(isVoting == false, \"Election not ended yet\");\r\n        for(uint i=0; i < memberList.length; i++){\r\n            if(_voteCount < memberList[i].voteCount){\r\n                _voteCount = memberList[i].voteCount;\r\n                memberAddress = memberList[i].addr;\r\n            }\r\n        }\r\n        return (memberAddress, _voteCount);\r\n    }\r\n\r\n    function deRegister(address _deReg) public onlyOwner{\r\n        // require(msg.sender == owner, \"Unauthorised\");\r\n        for(uint256 i=0; i<memberList.length; i++){\r\n            if(memberList[i].addr == _deReg){\r\n            delete memberList[i];\r\n            hasRegistered[_deReg] = false;\r\n            }\r\n        }\r\n    } \r\n}\r\n"
+    },
+    "contracts/ownable.sol": {
+      "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.17;\r\n\r\ncontract Ownable {\r\n    address public owner;\r\n\r\n    constructor(){\r\n       owner = msg.sender;\r\n    } \r\n\r\n    modifier onlyOwner(){\r\n        require(msg.sender == owner, \"Unauthorised\");\r\n        _;\r\n    }\r\n}"
+    }
+  },
+  "settings": {
+    "metadata": {
+      "bytecodeHash": "none",
+      "useLiteralContent": true
+    },
+    "optimizer": {
+      "enabled": true,
+      "runs": 1
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    }
+  }
+}
